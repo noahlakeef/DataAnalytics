@@ -7,7 +7,6 @@ import numpy as np
 import glob
 from pathlib import Path
 
-
 def addingToDataFrame(df):
   path = r'C:\Users\noahl\OneDrive\Desktop\Data Analytics\DatasetCleaningTemp\Datasets\*.csv'
 
@@ -27,10 +26,10 @@ def addingToDataFrame(df):
       
       file = SPY_Cleaning(file)
 
-      print(file)
-
       file.drop('Date', inplace=True, axis=1)
-      df["S&P500"] = file
+      #print(file)
+      df["S&P500"] = file.iloc[:,0].values
+      print(df)
       
     else:
       file = pd.read_csv(fname)
