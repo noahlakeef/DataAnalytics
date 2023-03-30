@@ -7,6 +7,10 @@ import numpy as np
 import glob
 from pathlib import Path
 
+"""
+THIS METHOD LOOPS THROUGH ALL THE CSVS, AND APPENDS THEM TO THE DATAFRAME.
+IF THE CSV IS NASDAQ OR S&P500 IT CALLS THEIR RESPECTIVE CLEANING METHODS THEN APPENDS TO DATAFRAME
+"""
 def addingToDataFrame(df):
   path = r'C:\DataAnalytics\DataAnalytics\DatasetCleaningTemp\Datasets\*.csv'
 
@@ -32,15 +36,15 @@ def addingToDataFrame(df):
       df["S&P500"] = file.iloc[:,0].values
       print(df)
     
+    # reading in NASDAQ .csv
     elif fname == r'C:\DataAnalytics\DataAnalytics\DatasetCleaningTemp\Datasets\NASDAQCOM.csv':
       file = pd.read_csv(fname)
       file = NASDAQ_Cleaning(file)
-      file.drop('DATE', inplace=True, axis=1)
+      file.drop('DATE', inplace=True, axis=1) # drop DATE column
       
-      df["NASDAQ"] = file.iloc[:,0].values  #TODO does not like when I try to append nasdaq same way I did S&P above
-      #TODO nasdaq has lest datapoints than it is supposed to must investigate
-      #TODO have now realized it is because there are missing values in nasdaq, must fill these values
+      df["NASDAQ"] = file.iloc[:,0].values  # appends nasdaq values to dataframe
     
+    #reading in any other .csv
     else:
       file = pd.read_csv(fname)
       file.drop('DATE', inplace=True, axis=1)
@@ -50,9 +54,13 @@ def addingToDataFrame(df):
   
   return df
 
+"""
+THIS METHOD CLEANS THE NASDAQ DATASET
+"""
 def NASDAQ_Cleaning(dataSet):
 
   i = 0
+  #this loops through the dataset and finds any blank values and replaces them with the nearest non-blank value
   for index, row in dataSet.iterrows():
     if i == 0:
       prevRow = row
@@ -64,7 +72,7 @@ def NASDAQ_Cleaning(dataSet):
     else:
       prevRow = row
     
-           
+  #this loops through the data set and removes and row that is not a quarterly date      
   for index, row in dataSet.iterrows():
        
       if('01/01' not in row['DATE'] and '04/01' not in row['DATE'] 
@@ -72,14 +80,14 @@ def NASDAQ_Cleaning(dataSet):
           
           dataSet = dataSet.drop(labels=index, axis=0)
   
-  for index, row in dataSet.iterrows():
-     print(index)    
   return dataSet
 
-
+"""
+THIS METHOD CLEANS THE S&P500 DATASET
+"""
 def SPY_Cleaning(dataSet):
+    #this loops through the data set and removes and row that is not a quarterly date   
     for index, row in dataSet.iterrows():
-       
       if('01/01' not in row['Date'] and '04/01' not in row['Date'] 
          and '07/01' not in row['Date'] and '10/01' not in row['Date']):
           
@@ -87,8 +95,9 @@ def SPY_Cleaning(dataSet):
       
     return dataSet
 
+#we read in the CPI .csv first to create the dataset
 dataframe = pd.read_csv(r'C:\DataAnalytics\DataAnalytics\DatasetCleaningTemp\Datasets\CPI.csv')
-
+#then we call the function that controls the cleaning and appending to the dataframe
 dataframe = addingToDataFrame(dataframe)
+#this makes the index of the data frame the DATE
 dataframe = dataframe.set_index('DATE')
-#print(dataframe)
