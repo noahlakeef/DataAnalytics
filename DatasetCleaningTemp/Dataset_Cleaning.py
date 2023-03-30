@@ -1,4 +1,3 @@
-# TODO: Read in CSVs, filter items by year, add on each column to existing dataframe
 # WKDIR: C:\Users\raghu\Documents\Education\College\8 23 Spring Sem\CAP4784\Project\Datasets
 # INVEST INTELLIGENCE
 
