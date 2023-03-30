@@ -36,10 +36,10 @@ def addingToDataFrame(df):
       file = pd.read_csv(fname)
       file = NASDAQ_Cleaning(file)
       file.drop('DATE', inplace=True, axis=1)
-
-      #print(file.iloc[:,0].values)
-      #df["NASDAQ"] = file.iloc[:,0].values  #TODO does not like when I try to append nasdaq same way I did S&P above
+      
+      df["NASDAQ"] = file.iloc[:,0].values  #TODO does not like when I try to append nasdaq same way I did S&P above
       #TODO nasdaq has lest datapoints than it is supposed to must investigate
+      #TODO have now realized it is because there are missing values in nasdaq, must fill these values
     
     else:
       file = pd.read_csv(fname)
@@ -51,13 +51,29 @@ def addingToDataFrame(df):
   return df
 
 def NASDAQ_Cleaning(dataSet):
+
+  i = 0
+  for index, row in dataSet.iterrows():
+    if i == 0:
+      prevRow = row
+      i += 1
+      continue
+
+    if row['NASDAQCOM'] == '.':
+      row['NASDAQCOM' ] = prevRow['NASDAQCOM']
+    else:
+      prevRow = row
+    
+           
   for index, row in dataSet.iterrows():
        
       if('01/01' not in row['DATE'] and '04/01' not in row['DATE'] 
-         and '07/01' not in row['DATE'] and '12/01' not in row['DATE']):
+         and '07/01' not in row['DATE'] and '10/01' not in row['DATE']):
           
           dataSet = dataSet.drop(labels=index, axis=0)
-      
+  
+  for index, row in dataSet.iterrows():
+     print(index)    
   return dataSet
 
 
@@ -65,7 +81,7 @@ def SPY_Cleaning(dataSet):
     for index, row in dataSet.iterrows():
        
       if('01/01' not in row['Date'] and '04/01' not in row['Date'] 
-         and '07/01' not in row['Date'] and '12/01' not in row['Date']):
+         and '07/01' not in row['Date'] and '10/01' not in row['Date']):
           
           dataSet = dataSet.drop(labels=index, axis=0)
       
