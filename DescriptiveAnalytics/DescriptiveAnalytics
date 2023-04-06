@@ -6,9 +6,16 @@ def descriptiveStatistics(df):
     print('Conducting descriptive statistics on the dataset')
     
     info = df.describe()
-    print(info)
+    
+    for index, row in info.items():
+        print('\nColumn: ', index)
+        print('Statistics: ')
+        
+        for col, val  in row.items():
+            print(col, ':',round(val, 2))
 
 
+    
 
 print('Reading in Financial Dataframe: ')
 dataframe = pd.read_csv(r'C:\DataAnalytics\DataAnalytics\DescriptiveAnalytics\data.csv')
