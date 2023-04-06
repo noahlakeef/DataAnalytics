@@ -11,16 +11,16 @@ THIS METHOD LOOPS THROUGH ALL THE CSVS, AND APPENDS THEM TO THE DATAFRAME.
 IF THE CSV IS NASDAQ OR S&P500 IT CALLS THEIR RESPECTIVE CLEANING METHODS THEN APPENDS TO DATAFRAME
 """
 def addingToDataFrame(df):
-  path = r'C:\DataAnalytics\DataAnalytics\DatasetCleaningTemp\Datasets\*.csv'
+  path = r'C:\DataAnalytics\DataAnalytics\DatasetCleaning\Datasets\*.csv'
 
   for fname in glob.glob(path): 
 
     #ignore CPI was loaded before func call
-    if fname == r'C:\DataAnalytics\DataAnalytics\DatasetCleaningTemp\Datasets\CPI.csv':
+    if fname == r'C:\DataAnalytics\DataAnalytics\DatasetCleaning\Datasets\CPI.csv':
        continue
     
     #read in and edit S&P500 
-    elif fname == r'C:\DataAnalytics\DataAnalytics\DatasetCleaningTemp\Datasets\S&P 500 Historical Data.csv':
+    elif fname == r'C:\DataAnalytics\DataAnalytics\DatasetCleaning\Datasets\S&P 500 Historical Data.csv':
       file = pd.read_csv(fname)
       
       file.drop('Open', inplace=True, axis=1)
@@ -36,7 +36,7 @@ def addingToDataFrame(df):
       print(df)
     
     # reading in NASDAQ .csv
-    elif fname == r'C:\DataAnalytics\DataAnalytics\DatasetCleaningTemp\Datasets\NASDAQCOM.csv':
+    elif fname == r'C:\DataAnalytics\DataAnalytics\DatasetCleaning\Datasets\NASDAQCOM.csv':
       file = pd.read_csv(fname)
       file = NASDAQ_Cleaning(file)
       file.drop('DATE', inplace=True, axis=1) # drop DATE column
@@ -95,8 +95,10 @@ def SPY_Cleaning(dataSet):
     return dataSet
 
 #we read in the CPI .csv first to create the dataset
-dataframe = pd.read_csv(r'C:\DataAnalytics\DataAnalytics\DatasetCleaningTemp\Datasets\CPI.csv')
+dataframe = pd.read_csv(r'C:\DataAnalytics\DataAnalytics\DatasetCleaning\Datasets\CPI.csv')
 #then we call the function that controls the cleaning and appending to the dataframe
 dataframe = addingToDataFrame(dataframe)
 #this makes the index of the data frame the DATE
 dataframe = dataframe.set_index('DATE')
+
+#dataframe.to_csv(r'C:\DataAnalytics\DataAnalytics\DescriptiveAnalytics\data.csv')
