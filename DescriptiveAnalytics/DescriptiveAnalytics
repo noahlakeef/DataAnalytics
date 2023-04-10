@@ -1,6 +1,7 @@
 import pandas as pd
 import pathlib as Path
 import numpy as np
+import matplotlib as plt
 
 def descriptiveStatistics(df):
     print('Conducting descriptive statistics on the dataset')
@@ -12,10 +13,8 @@ def descriptiveStatistics(df):
         print('Statistics: ')
         
         for col, val  in row.items():
-            print(col, ':',round(val, 2))
+            print('   ', col, ':',round(val, 2))
 
-
-    
 
 print('Reading in Financial Dataframe: ')
 dataframe = pd.read_csv(r'C:\DataAnalytics\DataAnalytics\DescriptiveAnalytics\data.csv')
