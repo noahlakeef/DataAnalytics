@@ -15,6 +15,8 @@ def descriptiveStatistics(df):
         for col, val  in row.items():
             print('   ', col, ':',round(val, 2))
 
+def visualizingData(df):
+    print('TODO create visualizations of the data')
 
 print('Reading in Financial Dataframe: ')
 dataframe = pd.read_csv(r'C:\DataAnalytics\DataAnalytics\DescriptiveAnalytics\data.csv')
