@@ -42,6 +42,20 @@ def showHist(data):
 def lineCharts(data):
     data.plot.line(subplots = True)
 
+def plot2Columns(data):
+    print('Enter column for the Y axis')
+    col = input('CPI, Debt, FEDFUNDS, GDP, MORTGAGE30US, NASDAQ, S&P500, UNRATE: ').upper()
+    print('Enter column for the X axis')
+    col2 = input('CPI, Debt, FEDFUNDS, GDP, MORTGAGE30US, NASDAQ, S&P500, UNRATE: ').upper()
+    y = data[col]
+    x = data[col2]
+
+    fig, ax = plt.subplots(1,1)
+    ax.plot(x,y)
+    plt.ylabel(col)
+    plt.xlabel(col2)
+    plt.show()
+
 print('Reading in Financial Dataframe: ')
 dataframe = pd.read_csv(r'C:\DataAnalytics\DataAnalytics\DescriptiveAnalytics\data.csv')
 
@@ -54,6 +68,7 @@ run this block of code ONCE to fix the S&P500 column, change file path to replac
 
 descriptiveStatistics(dataframe)
 #visualization calls
-barChart(dataframe)
-showHist(dataframe)
-lineCharts(dataframe)
+#barChart(dataframe)
+#showHist(dataframe)
+#lineCharts(dataframe)
+plot2Columns(dataframe)
