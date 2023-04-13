@@ -19,20 +19,21 @@ def descriptiveStatistics(df):
         #visualizingData(df, index)
 
 def barChart(data, colName):
-    print('Enter column you would like to see a histogram for')
-    y = data[input('CPI, Debt, FEDFUNDS, GDP, MORTGAGE30US, NASDAQ, S&P500, UNRATE: ')]
+    print('Enter column you would like to see a barchart for for')
+    col = input('CPI, Debt, FEDFUNDS, GDP, MORTGAGE30US, NASDAQ, S&P500, UNRATE: ').upper()
+    y = data[col]
     x = data['DATE']
 
     fig, ax = plt.subplots(1,1)
     ax.plot(x,y)
+    plt.ylabel(col)
     plt.xlabel('Time')
-    plt.ylabel('Unrate')
     ax.xaxis.set_major_locator(tk.MultipleLocator(49))
     plt.show()
 
 def showHist(data):
     print('Enter column you would like to see a histogram for')
-    col = input('CPI, Debt, FEDFUNDS, GDP, MORTGAGE30US, NASDAQ, S&P500, UNRATE: ')
+    col = input('CPI, Debt, FEDFUNDS, GDP, MORTGAGE30US, NASDAQ, S&P500, UNRATE: ').upper()
 
     plt.hist(data[col])
     plt.xlabel(col)
@@ -40,9 +41,15 @@ def showHist(data):
 
 print('Reading in Financial Dataframe: ')
 dataframe = pd.read_csv(r'C:\DataAnalytics\DataAnalytics\DescriptiveAnalytics\data.csv')
-#print(dataframe)
+
+"""
+run this block of code ONCE to fix the S&P500 column, change file path to replace data.csv and then comment back out
+"""
+#dataframe['S&P500'] = dataframe['S&P500'].apply(lambda x: float(x.split()[0].replace(',', '')))
+#dataframe.astype({'S&P500': 'float64'}).dtypes
+#dataframe.to_csv(r'C:\DataAnalytics\DataAnalytics\DescriptiveAnalytics\data.csv')
 descriptiveStatistics(dataframe)
 
 #visualization calls
-barChart(dataframe, None)
-showHist(dataframe)
+#barChart(dataframe, None)
+#showHist(dataframe)
