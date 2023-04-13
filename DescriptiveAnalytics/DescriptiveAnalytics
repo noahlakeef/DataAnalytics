@@ -18,7 +18,7 @@ def descriptiveStatistics(df):
         
         #visualizingData(df, index)
 
-def unemplyomentRateBar(data, colName):
+def barChart(data, colName):
     print('Enter column you would like to see a histogram for')
     y = data[input('CPI, Debt, FEDFUNDS, GDP, MORTGAGE30US, NASDAQ, S&P500, UNRATE: ')]
     x = data['DATE']
@@ -44,5 +44,5 @@ dataframe = pd.read_csv(r'C:\DataAnalytics\DataAnalytics\DescriptiveAnalytics\da
 descriptiveStatistics(dataframe)
 
 #visualization calls
-unemplyomentRateBar(dataframe, None)
+barChart(dataframe, None)
 showHist(dataframe)
