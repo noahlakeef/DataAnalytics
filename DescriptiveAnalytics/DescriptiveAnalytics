@@ -1,7 +1,8 @@
 import pandas as pd
 import pathlib as Path
 import numpy as np
-import matplotlib as plt
+import matplotlib.pyplot as plt
+import matplotlib.ticker as tk
 
 def descriptiveStatistics(df):
     print('Conducting descriptive statistics on the dataset')
@@ -14,14 +15,34 @@ def descriptiveStatistics(df):
         
         for col, val  in row.items():
             print('   ', col, ':',round(val, 2))
+        
+        #visualizingData(df, index)
 
-def visualizingData(df):
-    print('TODO create visualizations of the data')
+def unemplyomentRateBar(data, colName):
+    print('Enter column you would like to see a histogram for')
+    y = data[input('CPI, Debt, FEDFUNDS, GDP, MORTGAGE30US, NASDAQ, S&P500, UNRATE: ')]
+    x = data['DATE']
+
+    fig, ax = plt.subplots(1,1)
+    ax.plot(x,y)
+    plt.xlabel('Time')
+    plt.ylabel('Unrate')
+    ax.xaxis.set_major_locator(tk.MultipleLocator(49))
+    plt.show()
+
+def showHist(data):
+    print('Enter column you would like to see a histogram for')
+    col = input('CPI, Debt, FEDFUNDS, GDP, MORTGAGE30US, NASDAQ, S&P500, UNRATE: ')
+
+    plt.hist(data[col])
+    plt.xlabel(col)
+    plt.show()
 
 print('Reading in Financial Dataframe: ')
 dataframe = pd.read_csv(r'C:\DataAnalytics\DataAnalytics\DescriptiveAnalytics\data.csv')
-print(dataframe)
-
+#print(dataframe)
 descriptiveStatistics(dataframe)
 
-
+#visualization calls
+unemplyomentRateBar(dataframe, None)
+showHist(dataframe)
