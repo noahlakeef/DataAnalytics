@@ -58,6 +58,16 @@ def plot2Columns(data):
 
 print('Reading in Financial Dataframe: ')
 dataframe = pd.read_csv(r'C:\DataAnalytics\DataAnalytics\DescriptiveAnalytics\data.csv')
+print(dataframe)
+descriptiveStatistics(dataframe)
+
+
+#visualization calls
+#barChart(dataframe)
+#showHist(dataframe)
+#lineCharts(dataframe)
+#plot2Columns(dataframe)
+
 
 """
 run this block of code ONCE to fix the S&P500 column, change file path to replace data.csv and then comment back out
@@ -65,10 +75,3 @@ run this block of code ONCE to fix the S&P500 column, change file path to replac
 #dataframe['S&P500'] = dataframe['S&P500'].apply(lambda x: float(x.split()[0].replace(',', '')))
 #dataframe.astype({'S&P500': 'float64'}).dtypes
 #dataframe.to_csv(r'C:\DataAnalytics\DataAnalytics\DescriptiveAnalytics\data.csv')
-
-descriptiveStatistics(dataframe)
-#visualization calls
-#barChart(dataframe)
-#showHist(dataframe)
-#lineCharts(dataframe)
-plot2Columns(dataframe)
