@@ -32,12 +32,17 @@ def barChart(data):
     plt.show()
 
 def showHist(data):
-    print('Enter column you would like to see a histogram for')
-    col = input('CPI, Debt, FEDFUNDS, GDP, MORTGAGE30US, NASDAQ, S&P500, UNRATE: ').upper()
+    while(True):
+        print('Enter column you would like to see a histogram for')
+        col = input('CPI, Debt, FEDFUNDS, GDP, MORTGAGE30US, NASDAQ, S&P500, UNRATE: ').upper()
 
-    plt.hist(data[col])
-    plt.xlabel(col)
-    plt.show()
+        if col == 'k':
+            break
+        
+        plt.hist(data[col])
+        plt.hist
+        plt.xlabel(col)
+        plt.show()
 
 def lineCharts(data):
     data.plot.line(subplots = True)
@@ -58,13 +63,11 @@ def plot2Columns(data):
 
 print('Reading in Financial Dataframe: ')
 dataframe = pd.read_csv(r'C:\DataAnalytics\DataAnalytics\DescriptiveAnalytics\data.csv')
-print(dataframe)
 descriptiveStatistics(dataframe)
-
 
 #visualization calls
 #barChart(dataframe)
-#showHist(dataframe)
+showHist(dataframe)
 #lineCharts(dataframe)
 #plot2Columns(dataframe)
 
